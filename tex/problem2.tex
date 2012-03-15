@@ -1,0 +1,34 @@
+\begin{figure}
+  \begin{problem}[A\&P 4.12]
+    The following classical example from astronomy gives a strong motivation to integrate initial value ODEs with error control.
+  
+    Consider two bodies of masses $p = 0.0122771171$ and $\hat{\mu}= 1 - \mu$ (earth and sun) in a planar motion, and a third body of negligible mass (moon) moving in the same plane. The motion is governed by the equations
+    \begin{align*}
+      u_1'' &= u_1 + 2u_2' - \hat{\mu} \frac{u_1 + \mu}{D_1} - \mu \frac{u_1 - \hat{\mu}}{D_2}, \\
+      u_2'' &= u_2 - 2u_1' - \hat{\mu}\frac{u_2}{D_1} - \mu\frac{u_2}{D_2}, \\
+      D_1 &= ((u_1 + \mu)^2 + u_2^2)^{3/2}, \\
+      D_2 &= ((u_1 - \hat{\mu})^2 + u_2^2)^{3/2}.
+    \end{align*}
+    Starting with the initial conditions
+    \begin{align*}
+      u_1(0) &= 0.994, \quad u_2(0) = 0, \quad u_1'(0) = 0, \\
+      u_2'(0) &= -2.00158510637908252240537862224,
+    \end{align*}
+    the solution is periodic with period $< 17.1$. Note that $D_1 = (-\mu, 0)$ and $D_2 = 0$ at $(\hat{\mu},0)$, so we need to be careful when the orbit passes near these singularity points.
+  
+    The orbit is depicted in Figure \ref{F:orbit}. It was obtained using a 4(5) embedded pair with a local error tolerance $1.e - 6$. This necessitated 204 time steps.
+  
+    Using the classical Runge-Kutta method of order 4, integrate this problem on $[0,17.1]$ with a \emph{uniform} step size, using 100, 1000, 10,000, and 20,000 steps. Plot the orbit for each case. How many uniform steps are needed before the orbit appears to be \emph{qualitatively} correct?
+    
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/orbit}
+    \caption{Astronomical orbit using a Runge-Kutta 4(5) embedded pair method.}
+    \label{F:orbit}
+  \end{problem}
+\end{figure}
+
+\FloatBarrier
+
+\begin{solution}
+  
+\end{solution}

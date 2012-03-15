@@ -1,0 +1,38 @@
+\begin{problem}[A\&P 4.17]
+  Collocation at Gaussian points is an implicit, expensive method. An
+alternative idea is to use an explicit Runge-Kutta method, orthogonalizing $U$ at the end of each time step. Consider a method of the form
+  \[
+    \mb y_n = \mb y_{n-1} + h \mb \psi(t_{n-1}, \mb y_{n-1}, h)
+  \]
+  for which the matrix $U(t)$ is written as an $m^2$-length vector of unknowns. Since the result of this step is not necessarily an orthogonal matrix, a step of this method starting with an orthogonal $U_{n-1}$ approximating $U(t_{n-1})$ consists of two phases:
+  \begin{align*}
+    \hat{U}_n &= U_{n-1} + h \psi(t_{n-1}, U_{n-1}, h), \\
+    \hat{U}_n &= U_n R_n,
+  \end{align*}
+  where $U_n R_n$ is a $QR$ decomposition of $U_n$. The orthogonal matrix $U_n$ is then the projection of the result of the Runge-Kutta step onto the invariant manifold, and it is taken as the end result of the step.
+  
+  Write a program which carries out this algorithm using the classical fourth-order Runge-Kutta method. Try your program on the problem
+  \begin{align*}
+    U' = \omega
+    \begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}
+    U,
+  \end{align*}
+  whose exact solution is the reflection matrix
+  \[
+    U(t) = 
+    \begin{pmatrix}
+      \cos \omega t & \sin \omega t \\
+      -\sin \omega t & \cos \omega t
+    \end{pmatrix}
+  \]
+  for various values of $w$, $h$, and $b$. What are your conclusions?
+\end{problem}
+
+\FloatBarrier
+
+\begin{solution}
+  
+\end{solution}

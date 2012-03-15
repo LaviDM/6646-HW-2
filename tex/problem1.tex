@@ -1,0 +1,46 @@
+\begin{problem}[A\&P 4.11]
+  The system
+  \begin{subequations}
+    \begin{align}
+      \label{E:momentum_1}
+      M \mb q' &= \mb p, \\
+      \label{E:momentum_2}
+      \mb p' &= \mb f(\mb q)
+    \end{align}
+  \end{subequations}
+  is in \emph{partitioned form}. It is also a Hamiltonian system with a separable Hamiltonian, i.e., the ODE for $\mb q$ depends only on $\mb p$ and the ODE for $\mb p$ depends only on $\mb q$. This can be used to design special discretizations. Consider a constant step size $h$.
+  \begin{enumerate}[(a)]
+    \item The \emph{symplectic Euler} method applies backward Euler to \eqref{E:momentum_1} and the forward Euler to \eqref{E:momentum_2}. Show that the resulting method is explicit and first-order accurate.
+    \item The \emph{leapfrog}, or \emph{Verlet}, method can be viewed as a staggered midpoint discretization:
+    \begin{align*}
+      M(\mb q_{n+1/2} - \mb q_{n-1/2}) &= h \mb p_n, \\
+      \mb p_n - \mb p_{n-1} &= h \mb f(\mb q_{n-1/2});
+    \end{align*}
+    i.e., the mesh on which the $\mb q$-approximations ``live'' is staggered by half a step compared to the $\mb p$-mesh. The method can be kick-started by
+    \[
+      \mb q_{1/2} = \mb q_0 + h/2 M^{-1}\mb p_0.
+    \]
+    To evaluate $\mb q_n$ at any mesh point, the expression
+    \[
+      \mb q_n = \frac12 (\mb q_{n-1/2} + \mb q_{n+1/2})
+    \]
+    can be used.
+    
+    Show that this method is explicit and second order accurate.
+    \item The Morse problem is 
+    \[
+      M \mb q'' = \mb f(\mb q), \quad \text{ with } \mb f(\mb q) = -\mb \nabla U(\mb q)
+    \]
+    where $\mb q = q(t)$ is a scalar, $U(q) = D(1 - e^{-S(q-q_0)})^2$, and we use the constants $D = 90.5*.4814e-3$, $S = 1.814$, $q_0 = 1.41$, and $M = 0.9953$.
+    
+    Integrate the Morse problem using 1000 uniform steps $h$. Apply three methods: forward Euler, symplectic Euler, and leapfrog. Try the values $h = 2$, $h = 2.3684$, and $h = 2.3685$ and plot in each case the discrepancy in the Hamiltonian (which equals 0 for the exact solution). The plot for $h = 2.3684$ is given in Figure 4.7.
+    
+    What are your observations? [The surprising increase in leapfrog accuracy from $h = 2.3684$ to $h = 2.3685$ relates to a phenomenon called \emph{resonance instability}.]
+  \end{enumerate}
+\end{problem}
+
+\FloatBarrier
+
+\begin{solution}
+  
+\end{solution}

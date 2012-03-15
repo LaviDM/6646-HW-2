@@ -1,0 +1,32 @@
+\begin{figure}
+  \begin{problem}[A\&P 4.19]
+    The modified Kepler problem is a Hamiltonian system, i.e., 
+    \[
+      \mb q' = H_{\mb p}, \quad \mb p' = -H_{\mb q},
+    \]
+    with the Hamiltonian
+    \[
+      H(\mb q, \mb p) = \frac{p_1^2 + p_2^2}{2} - \frac1r - \frac{\alpha}{2r^3},
+    \]
+    where $r = \sqrt{q_1^2 + q_2^2}$, and we take $\alpha = 0.01$. Clearly, $H' = H_{\mb q} \mb q' + H_{\mb p} \mb p' = 0$, so $H(\mb q(t), \mb p(t)) = H(\mb q(0), \mb p(0))$ for all $t$. We consider simulating this system over a long time interval with a relatively coarse, uniform step size $h$, i.e., $bh \gg 1$. The mere accumulation of local errors may then become a problem. For instance, using the explicit midpoint method with $h = 0.1$ and $b = 500$, the approximate solution for $r$ becomes larger than the exact one by two orders of magnitude.
+  
+    But some methods perform better than would normally be expected. In Figure \ref{F:kepler} we plot $q_1$ vs. $q_2$ (``phase plane portrait'') for (a) the implicit midpoint method using $h = 0.1$, (b) the classical explicit Runge-Kutta method of order 4 using $h = 0.1$, and (c) the exact solution (or rather, a sufficiently close approximation to it). The initial conditions are
+    \[
+      q_1(0) = 1 - \beta, \quad q_2(0) = 0, \quad p_1(0) = 0, \quad p_2(0) = \sqrt{(1 + \beta)/(1 - \beta)}
+    \]
+    with $\beta = 0.6$. Clearly, the midpoint solution with this coarse step size outperforms not only the explicit midpoint method but also the fourth-order method. Even though the pointwise error reaches close to 100\% when $t$ is close to $b$, the midpoint solution lies on a torus, like the exact solution, whereas the RK4 (classical fourth-order) picture is noisy. Thus, we see yet again that truncation error is not everything, even in some nonstiff situations, and the theory in this case must include other aspects.
+  
+    Integrate these equations using the two methods of Figure \ref{F:kepler} with a constant step size $h = 0.1$ and $h = 0.01$ (four runs in total), monitoring the maximum deviation $|H(\mb q(t), \mb p(t)) - H( \mb q(0),\mb p(0))|$. (This is a simple error indicator which typically underestimates the error in the solution components, and is of interest in its own right.) What are your conclusions?
+    
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/kepler}
+    \caption{Modified Kepler problem: Approximate and exact solutions.}
+    \label{F:kepler}
+  \end{problem}
+\end{figure}
+
+\FloatBarrier
+
+\begin{solution}
+  
+\end{solution}

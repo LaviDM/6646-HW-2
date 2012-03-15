@@ -1,0 +1,31 @@
+\begin{figure}
+  
+  \begin{problem}[A\&P 5.5]
+    The famous Lorenz equations provide a simple example of a chaotic system. They are given by
+    \[
+      \mb y' = \mb f(\mb y) = 
+      \begin{pmatrix}
+        \sigma(y_2 - y_1) \\
+        r y_1 - y_2 - y_1 y_3 \\
+        y_1 y_2 - b y_3
+      \end{pmatrix},
+    \]
+    where $\sigma$, $r$, $b$ are positive parameters. Following Lorenz we set $\omega = 10$, $b = 8/3$, $r = 28$ and integrate starting from $\mb y(0) = (0, 1, 0)^T$. Plotting $y_3$ vs. $y_1$ we obtain the famous ``butterfly'' depicted in Figure \ref{F:lorenz}.
+    \begin{enumerate}[(a)]
+      \item Using a software package of your choice, integrate these equations for $0 \leq t \leq 100$ with an error tolerance $1.e - 6$, and plot $y_3$ vs. $y_1$, as well as $y_2$ as a function of $t$. What do you observe?
+      \item Plot the resulting trajectory in the three-dimensional phase space. Observe the \emph{strange attractor} that the trajectory appears to settle into.
+      \item Chaotic solutions are famous for their highly sensitive dependence on initial data. This leads to \emph{unpredictability} of the solution (and the physical phenomena it represents). When solving numerically we also expect large errors to result from the numerical discretization. Recompute your trajectory with the same initial data using the same package, changing only the error tolerance to $1.e - 7$. Compare the values of $y(100)$ for the two computations, as well as the plots in phase plane. Discuss.
+    \end{enumerate}
+  
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/lorenz}
+    \caption{Lorenz ``butterfly'' in the $y_1 \times y_3$ plane.}
+    \label{F:lorenz}
+  \end{problem}
+\end{figure}
+
+\FloatBarrier
+
+\begin{solution}
+  
+\end{solution}
