@@ -35,15 +35,15 @@ for i=1:length(hsteps)
     case 1
       [t,y,ham] = forwardeuler(F, y0, h, H, tfinal);
       label = ['forward Euler, h = ', num2str(h,10)];
-      filename = ['01_fe', num2str(i), '.ps'];
+      filename = ['01_fe', num2str(i), '.pdf'];
     case 2
       [t,y,ham] = symplecticeuler(F, y0, h, H, tfinal);
       label = ['symplectic Euler, h = ', num2str(h,10)];
-      filename = ['01_se', num2str(i), '.ps'];
+      filename = ['01_se', num2str(i), '.pdf'];
     case 3
       [t,y,ham] = leapfrog(f, M, y0, h, H, tfinal);
       label = ['leapfrog, h = ', num2str(h,10)];
-      filename = ['01_lf', num2str(i), '.ps'];
+      filename = ['01_lf', num2str(i), '.pdf'];
     end
     
     p = figure;
@@ -51,6 +51,6 @@ for i=1:length(hsteps)
     xlabel('t');
     ylabel('H(t) - H(0)');
     title(label);
-    print(p, '-dps', filename);
+    print(p, '-dpdf', filename);
   end
 end
