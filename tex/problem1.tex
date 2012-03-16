@@ -31,7 +31,7 @@
     \[
       M \mb q'' = \mb f(\mb q), \quad \text{ with } \mb f(\mb q) = -\mb \nabla U(\mb q)
     \]
-    where $\mb q = q(t)$ is a scalar, $U(q) = D(1 - e^{-S(q-q_0)})^2$, and we use the constants $D = 90.5*.4814e-3$, $S = 1.814$, $q_0 = 1.41$, and $M = 0.9953$.
+    where $\mb q = q(t)$ is a scalar, $U(q) = D(1 - e^{-S(q-q_0)})^2$, and we use the constants $D = 90.5*.4184e-3$, $S = 1.814$, $q_0 = 1.41$, and $M = 0.9953$.
     
     Integrate the Morse problem using 1000 uniform steps $h$. Apply three methods: forward Euler, symplectic Euler, and leapfrog. Try the values $h = 2$, $h = 2.3684$, and $h = 2.3685$ and plot in each case the discrepancy in the Hamiltonian (which equals 0 for the exact solution). The plot for $h = 2.3684$ is given in Figure 4.7.
     
@@ -42,5 +42,122 @@
 \FloatBarrier
 
 \begin{solution}
+  \begin{enumerate}[(a)]
+    \item If we apply the symplectic Euler method we get
+    \begin{align*}
+      \mb p_{n+1} &= \mb p_n + h \mb f(\mb q_n) \\
+      \mb q_{n+1} &= \mb q_n + h M^{-1} \mb p_{n+1}.
+    \end{align*}
+    Finding $\mb p_{n+1}$ is clearly explicit, and substituting into $\mb q_{n+1}$ we get
+    \[
+      \mb q_{n+1} = \mb q_n + h M^{-1}(\mb p_n + h \mb f(\mb q_n))
+    \]
+    which is explicit as well.
   
+    We can write this method in vector form as 
+    \[
+      \begin{pmatrix}
+        \mb q_{n+1} \\ \mb p_{n+1}
+      \end{pmatrix}
+      =
+      \begin{pmatrix}
+        \mb q_n + h M^{-1} \mb p_{n+1} \\
+        \mb p_n + h \mb f(\mb q_n)
+      \end{pmatrix}.
+    \]
+    To simplify a bit, write
+    \[
+      \mb z_n = 
+      \begin{pmatrix}
+        \mb q_n \\ \mb p_n
+      \end{pmatrix},
+      \quad\text{ and }\quad 
+      M^{-1} \mb p = \mb g(\mb p).
+    \]
+    Then the local truncation error is given by
+    \begin{align*}
+      &\mb z(t_{n+1}) - \mb z(t_n) - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_{n+1})) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} \\
+      = & \mb z(t_n) + h\mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - \mb z(t_n) - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_{n+1})) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} \\
+      = & h \mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_{n+1})) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} \\
+      = & h
+      \begin{pmatrix}
+        \mb q'(t_n) \\
+        \mb p'(t_n)
+      \end{pmatrix} + \frac{h^2}{2}
+      \begin{pmatrix}
+        \mb q''(t_n) \\
+        \mb p''(t_n)
+      \end{pmatrix} - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_{n+1})) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} + \mb O(h^3) \\
+      = & h
+      \begin{pmatrix}
+        \mb g(\mb p(t_n)) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} + \frac{h^2}{2}
+      \begin{pmatrix}
+        \frac{\partial \mb g}{\partial \mb p}(\mb p(t_n))\mb p'(t_n) \\
+        \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb q'(t_n)
+      \end{pmatrix} - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_n) + h \mb p'(t_n) + \mb O(h^2)) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} + \mb O(h^3) \\
+      = & h
+      \begin{pmatrix}
+        \mb g(\mb p(t_n)) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} + \frac{h^2}{2}
+      \begin{pmatrix}
+        \frac{\partial \mb g}{\partial \mb p}(\mb p(t_n))\mb p'(t_n) \\
+        \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb q'(t_n)
+      \end{pmatrix} - h
+      \begin{pmatrix}
+        \mb g(\mb p(t_n)) \\
+        \mb f(\mb q(t_n))
+      \end{pmatrix} + 
+      \begin{pmatrix}
+        h^2 g(\mb p'(t_n) + \mb O(h^3)) \\
+        0
+      \end{pmatrix} +
+      \mb O(h^3) \\
+      = & \frac{h^2}{2}
+      \begin{pmatrix}
+        -\frac{\partial \mb g}{\partial \mb p}(\mb p(t_n)) \mb f(\mb q(t_n)) \\
+        \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb  g(\mb p(t_n))
+      \end{pmatrix}
+      + \mb O(h^3).
+    \end{align*}
+    Since the local truncation error is order $h^2$, the global error is order $h$, so the method is first order.
+    \item [todo]
+    \item 
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.32\textwidth]{images/01_fe1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_fe2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_fe3.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_se1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_se2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_se3.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_lf1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_lf2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_lf3.pdf}
+      \caption{Hamiltonian discrepancy for various methods and step sizes.}
+      \label{F:hamiltonian}
+    \end{figure}
+  \end{enumerate}
 \end{solution}
