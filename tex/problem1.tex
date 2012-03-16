@@ -78,20 +78,20 @@
     \begin{align*}
       &\mb z(t_{n+1}) - \mb z(t_n) - h
       \begin{pmatrix}
-        \mb g(\mb p(t_{n+1})) \\
+        M^{-1}\mb p(t_{n+1}) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} \\
-      = & \mb z(t_n) + h\mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - \mb z(t_n) - h
+      =\, & \mb z(t_n) + h\mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - \mb z(t_n) - h
       \begin{pmatrix}
-        \mb g(\mb p(t_{n+1})) \\
+        M^{-1}\mb p(t_{n+1}) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} \\
-      = & h \mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - h
+      =\, & h \mb z'(t_n) + \frac{h^2}{2}\mb z''(t_n) + \mb O(h^3) - h
       \begin{pmatrix}
-        \mb g(\mb p(t_{n+1})) \\
+        M^{-1}\mb p(t_{n+1}) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} \\
-      = & h
+      =\, & h
       \begin{pmatrix}
         \mb q'(t_n) \\
         \mb p'(t_n)
@@ -101,43 +101,43 @@
         \mb p''(t_n)
       \end{pmatrix} - h
       \begin{pmatrix}
-        \mb g(\mb p(t_{n+1})) \\
+        M^{-1}\mb p(t_{n+1}) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} + \mb O(h^3) \\
-      = & h
+      =\, & h
       \begin{pmatrix}
-        \mb g(\mb p(t_n)) \\
+        M^{-1}\mb p(t_n) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} + \frac{h^2}{2}
       \begin{pmatrix}
-        \frac{\partial \mb g}{\partial \mb p}(\mb p(t_n))\mb p'(t_n) \\
+        M^{-1} \mb p'(t_n) \\
         \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb q'(t_n)
       \end{pmatrix} - h
       \begin{pmatrix}
-        \mb g(\mb p(t_n) + h \mb p'(t_n) + \mb O(h^2)) \\
+        M^{-1}(\mb p(t_n) + h \mb p'(t_n) + \mb O(h^2)) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} + \mb O(h^3) \\
-      = & h
+      =\, & h
       \begin{pmatrix}
-        \mb g(\mb p(t_n)) \\
+        M^{-1}\mb p(t_n) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} + \frac{h^2}{2}
       \begin{pmatrix}
-        \frac{\partial \mb g}{\partial \mb p}(\mb p(t_n))\mb p'(t_n) \\
+        M^{-1} \mb p'(t_n) \\
         \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb q'(t_n)
       \end{pmatrix} - h
       \begin{pmatrix}
-        \mb g(\mb p(t_n)) \\
+        M^{-1}\mb p(t_n) \\
         \mb f(\mb q(t_n))
       \end{pmatrix} + 
       \begin{pmatrix}
-        h^2 g(\mb p'(t_n) + \mb O(h^3)) \\
+        h^2 M^{-1} \mb p'(t_n) + \mb O(h^3) \\
         0
       \end{pmatrix} +
       \mb O(h^3) \\
-      = & \frac{h^2}{2}
+      =\, & \frac{h^2}{2}
       \begin{pmatrix}
-        -\frac{\partial \mb g}{\partial \mb p}(\mb p(t_n)) \mb f(\mb q(t_n)) \\
+        -M^{-1} \mb p'(t_n) \\
         \frac{\partial \mb f}{\partial \mb q}(\mb q(t_n))\mb  g(\mb p(t_n))
       \end{pmatrix}
       + \mb O(h^3).
