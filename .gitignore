@@ -1,3 +1,11 @@
+# OS X files #
+##############
+.DS_Store
+
+# image files #
+###############
+*.ps
+
 # Latex generated files #
 #########################
 *.aux
