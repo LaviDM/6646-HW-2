@@ -2,7 +2,7 @@
   \begin{problem}[A\&P 4.12]
     The following classical example from astronomy gives a strong motivation to integrate initial value ODEs with error control.
   
-    Consider two bodies of masses $p = 0.0122771171$ and $\hat{\mu}= 1 - \mu$ (earth and sun) in a planar motion, and a third body of negligible mass (moon) moving in the same plane. The motion is governed by the equations
+    Consider two bodies of masses $\mu = 0.0122771171$ and $\hat{\mu}= 1 - \mu$ (earth and sun) in a planar motion, and a third body of negligible mass (moon) moving in the same plane. The motion is governed by the equations
     \begin{align*}
       u_1'' &= u_1 + 2u_2' - \hat{\mu} \frac{u_1 + \mu}{D_1} - \mu \frac{u_1 - \hat{\mu}}{D_2}, \\
       u_2'' &= u_2 - 2u_1' - \hat{\mu}\frac{u_2}{D_1} - \mu\frac{u_2}{D_2}, \\
@@ -30,5 +30,36 @@
 \FloatBarrier
 
 \begin{solution}
+  The classical Runge-Kutta method of order 4 is given by 
+  \begin{align*}
+    Y_1 &= y_{n-1}, \\
+    Y_2 &= y_{n-1} + \frac{h}{2} f(t_{n-1}, Y_1), \\
+    Y_3 &= y_{n-1} + \frac{h}{2} f(t_{n-1/2}, Y_2), \\
+    Y_4 &= y_{n-1} + h f(t_{n-1/2}, Y_3), \\
+    y_n &= y_{n-1} + \frac{h}{6} \left( f(t_{n-1}, Y_1) + 2 f(t_{n-1/2}, Y_2) + 2 f(t_{n-1/2}, Y_3) + f(t_n, Y_4)\right).
+  \end{align*}
+  We can convert the system to be first-order by writing
+  \[
+    \begin{pmatrix}
+      x_1 \\ x_2 \\ y_1 \\ y_2
+    \end{pmatrix}'
+    = 
+    \begin{pmatrix}
+      x_2 \\
+      x_1 + 2y_2 - \hat{\mu}(x_1 + \mu)((x_1 + \mu)^2 + y_1^2)^{-3/2} - \mu(x_1 - \hat{\mu})((x_1 - \hat{\mu})^2 + y_1^2)^{-3/2} \\
+      y_2 \\
+      y_1 - 2x_2 - \hat{\mu}y_1((x_1 + \mu)^2 + y_1^2)^{-3/2} - \mu y_1((x_1 - \hat{\mu})^2 + y_1^2)^{-3/2}
+    \end{pmatrix}.
+  \]
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.49\textwidth]{images/02_rk4_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_rk4_2.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_rk4_3.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_rk4_4.pdf}
+    \caption{Astronomical orbits using the classical Runge-Kutta method of order 4}
+    \label{F:rk4}
+  \end{figure}
   
 \end{solution}
