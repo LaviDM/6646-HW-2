@@ -20,7 +20,7 @@ function [t, y] = rk4qr(f, y0, h, tfinal)
     ytemp = y(:,n) + (h/6) * (feval(f, h*n, Y1) + 2*feval(f, h*(n+1/2), Y2) + 2*feval(f, h*(n+1/2), Y3) + feval(f, h*(n+1), Y4));
     
     % perform a QR factorization to project orthogonally
-    [Q, R] = qr([ytemp(1), ytemp(2); ytemp(3), ytemp(4)]);
+    [Q, R] = qr2([ytemp(1), ytemp(2); ytemp(3), ytemp(4)]);
     y(:,n+1) = [Q(1,1); Q(1,2); Q(2,1); Q(2,2)];
     
     % store the time step
