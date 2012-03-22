@@ -34,5 +34,66 @@ alternative idea is to use an explicit Runge-Kutta method, orthogonalizing $U$ a
 \FloatBarrier
 
 \begin{solution}
+  Write 
+  \[
+    U = 
+    \begin{pmatrix}
+      y_1(t) & y_2(t) \\
+      y_3(t) & y_4(t)
+    \end{pmatrix}.
+  \]
+  Then we have 
+  \begin{align*}
+    \begin{pmatrix}
+      y_1 & y_2 \\
+      y_3 & y_4
+    \end{pmatrix}' = 
+    \omega
+    \begin{pmatrix}
+      0 & 1 \\
+      -1 & 0
+    \end{pmatrix}
+    \begin{pmatrix}
+      y_1 & y_2 \\
+      y_3 & y_4
+    \end{pmatrix}
+  \end{align*}
+  or 
+  \begin{align*}
+    \begin{pmatrix}
+      y_1 & y_2 \\
+      y_3 & y_4
+    \end{pmatrix}' = 
+    \omega
+    \begin{pmatrix}
+      y_3 & y_4 \\
+      - y_1 & - y_2 
+    \end{pmatrix}.
+  \end{align*}
+  Finally, in vector form we have
+  \[
+    \begin{pmatrix}
+      y_1 \\ y_2 \\ y_3 \\ y_4
+    \end{pmatrix}' = 
+    \omega
+    \begin{pmatrix}
+      y_3 \\ y_4 \\ - y_1 \\ - y_2
+    \end{pmatrix}.
+  \]
+  
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_3.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_3.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_3.pdf}
+    \caption{blah}
+    \label{F:circles}
+  \end{figure}
   
 \end{solution}
