@@ -10,8 +10,8 @@ function [T, Y, D] = forwardeuler_dis(f, y0, h, H, tfinal)
   % set the initial values
   Y(:,n) = y0;
   T(n) = 0;
-  ham0 = H(y(1,1), y(2,1));
-  D(n) = H(y(1,n), y(2,n)) - ham0;
+  ham0 = H(Y(1,1), Y(2,1));
+  D(n) = H(Y(1,n), Y(2,n)) - ham0;
 
   while T(end) < (tfinal - h)
     % apply the forward Euler method
