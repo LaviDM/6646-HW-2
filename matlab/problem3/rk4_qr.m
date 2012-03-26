@@ -1,5 +1,5 @@
-function [t, y] = rk4qr(f, y0, h, tfinal)
-  % rk4qr(f, y0, h, tfinal) Uses the classical Runge-Kutta method of order 4
+function [t, y] = rk4_qr(f, y0, h, tfinal)
+  % rk4_qr(f, y0, h, tfinal) Uses the classical Runge-Kutta method of order 4
   %                         to evaluate y' = f(t, y) where y(0) = y0, h is the
   %                         time step size, and tfinal is the largest t value.
   %                         In addition, orthogonalizes y on each step.
