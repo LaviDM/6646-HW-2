@@ -1,7 +1,8 @@
-function [T, Y] = implicitmidpoint(f, y0, h, tfinal)
-  % implicitmidpoint(f, y0, h, tfinal)  
+function [T, Y, D] = implicitmidpoint_dis(f, y0, h, H, tfinal)
+  % implicitmidpoint_dis(f, y0, h, H, tfinal) 
   %     Uses the implicit midpoint method to evaluate y' = f(t, y) where 
-  %     y(0) = y0, h is the time step size, and tfinal is the largest t value.
+  %     y(0) = y0, h is the time step size, and tfinal is the largest t value. 
+  %     Keeps track of the deviation |H(y_n) - H(y_0)|.
   
   % initialize the step number
   n = 1;
@@ -9,6 +10,7 @@ function [T, Y] = implicitmidpoint(f, y0, h, tfinal)
   % set the initial values
   Y(:,n) = y0;
   T(n) = 0;
+  D(n) = 0;
   
   % create options to supress the output of fsolve
   options = optimset('Display','off');
@@ -19,6 +21,9 @@ function [T, Y] = implicitmidpoint(f, y0, h, tfinal)
     
     % store the time step
     T(n+1) = T(n) + h;
+    
+    % calculate the deviation
+    D(n+1) = norm(H(Y(:,n+1)) - H(Y(:,1)));
     
     % increment the step number
     n = n + 1;

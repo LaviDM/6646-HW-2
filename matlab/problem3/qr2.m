@@ -1,7 +1,8 @@
-function [Q,R] = qr2(A)
-  % qr2(A)  Computes a QR factorization of A using the Gram-Schmidt method
+function [Q, R] = qr2(A)
+  % qr2(A)  
+  %     Computes a QR factorization of A using the Gram-Schmidt method.
   
-  [m,n] = size(A);
+  [m, n] = size(A);
   
   % compute QR using Gram-Schmidt
   for j = 1:n
