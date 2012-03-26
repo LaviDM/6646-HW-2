@@ -10,7 +10,7 @@
         y_1 y_2 - b y_3
       \end{pmatrix},
     \]
-    where $\sigma$, $r$, $b$ are positive parameters. Following Lorenz we set $\omega = 10$, $b = 8/3$, $r = 28$ and integrate starting from $\mb y(0) = (0, 1, 0)^T$. Plotting $y_3$ vs. $y_1$ we obtain the famous ``butterfly'' depicted in Figure \ref{F:lorenz}.
+    where $\sigma$, $r$, $b$ are positive parameters. Following Lorenz we set $\sigma = 10$, $b = 8/3$, $r = 28$ and integrate starting from $\mb y(0) = (0, 1, 0)^T$. Plotting $y_3$ vs. $y_1$ we obtain the famous ``butterfly'' depicted in Figure \ref{F:lorenz}.
     \begin{enumerate}[(a)]
       \item Using a software package of your choice, integrate these equations for $0 \leq t \leq 100$ with an error tolerance $1.e - 6$, and plot $y_3$ vs. $y_1$, as well as $y_2$ as a function of $t$. What do you observe?
       \item Plot the resulting trajectory in the three-dimensional phase space. Observe the \emph{strange attractor} that the trajectory appears to settle into.
@@ -27,5 +27,53 @@
 \FloatBarrier
 
 \begin{solution}
-  
+  \begin{enumerate}[(a)]
+    \item 
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{images/05_1.pdf}
+      \includegraphics[width=0.49\textwidth]{images/05_2.pdf}
+      \caption{Lorenz attractor: $y_3$ vs. $y_1$ and $y_2$ vs. $t$, error tolerance of $1.e-6$}
+      \label{F:05_1}
+    \end{figure}
+      Figure \ref{F:05_1} shows the Lorenz attractor with an error tolerance of $1.e-6$. Looking at the plot of $y_3$ vs $y_1$, it appears that there are two orbits that the particle switches between. Looking at $y_2$ vs. $t$, we can see how the particle bounces back and forth between orbits. Whenever $y_2$ is above 0, it is in one of the orbits, and when $y_2$ is below 0, it is in the other. There doesn't seem to be any pattern behind how much time the particle spends in one orbit before switching.
+    % \FloatBarrier
+    \item
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{images/05_3.pdf}
+      \caption{Lorenz attractor: 3D phase space, error tolerance of $1.e-6$}
+      \label{F:05_2}
+    \end{figure}
+    Figure \ref{F:05_2} shows the trajectory in three-dimensional phase space. The trajectory seems to be constrained to a butterfly shaped region, but never settling down to a fixed orbit. These are the properties of a strange attractor.
+    \newpage
+    \item
+    \begin{figure}[h!]
+      \centering
+      \includegraphics[width=0.49\textwidth]{images/05_4.pdf}
+      \caption{Lorenz attractor: $y_3$ vs. $y_1$, error tolerance of $1.e-7$}
+      \label{F:05_3}
+    \end{figure}
+    Figure \ref{F:05_3} shows the same system with an error tolerance of $1.e-7$. While the trajectory of this new plot seems to stay in roughly the same region as the one with $1.e-6$ tolerance, the actual path taken is quite different. We can verify this by looking at the endpoints. For the solution using $1.e-6$ tolerance, we have
+    \[
+      \mb y(100) = 
+      \begin{pmatrix}
+        -8.3984 \\
+        -12.2558 \\
+        20.6145
+      \end{pmatrix}.
+    \]
+    For the solution using $1.e-7$ tolerance, we have
+    \[
+      \mb y(100) = 
+      \begin{pmatrix}
+        10.8571 \\
+        12.458 \\
+        28.0439
+      \end{pmatrix}.
+    \]
+    These values are clearly completely unrelated. Because of the chaotic nature of the Lorenz attractor, very small perturbations of initial conditions result in very large changes in the solution. By requiring a less stringent error tolerance at each step, we are in essence allowing for larger perturbations. This is why the two solutions look so drastically different.
+    
+    Since every numerical method has some error, we can only hope to get a qualitative picture for such chaotic systems. Any change in the method or error tolerance will result in a drastically different trajectory.
+  \end{enumerate}
 \end{solution}

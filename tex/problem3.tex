@@ -81,19 +81,39 @@ alternative idea is to use an explicit Runge-Kutta method, orthogonalizing $U$ a
     \end{pmatrix}.
   \]
   
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_1.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_2.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_1_3.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_1.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_2.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_2_3.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_1.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_2.pdf}
-    \includegraphics[width=0.32\textwidth]{images/03_y1vy2_3_3.pdf}
-    \caption{blah}
-    \label{F:circles}
-  \end{figure}
+  Since the built in MATLAB function for computing QR factorizations does not always yield the closest $Q$ to the original matrix, we write an alternative using the Gram-Schmidt process. See \texttt{matlab/problem3/qr2.m}.
   
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.32\textwidth]{images/03_1_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_1_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_1_3.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_2_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_2_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_2_3.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_3_1.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_3_2.pdf}
+    \includegraphics[width=0.32\textwidth]{images/03_3_3.pdf}
+    \caption{Orthogonalization method for varying $\omega$, $h$}
+    \label{F:03}
+  \end{figure}
+
+  Figure \ref{F:03} shows the solution in phase space for this method with varying values of $h$ and $\omega$. For each image, $b$ was taken to be $10 \pi/\omega$. This yields 5 rotations of the system. Immediately we see that some of the images coincide. Specifically
+  \begin{align*}
+    &\{h = 0.5, \omega = 0.5\}, \{h = 0.25, \omega = 1\}, \\
+    \text{and } &\{h = 1, \omega = 0.5\}, \{h = 0.5, \omega = 1\}, \{h = 0.25, \omega = 2\}, \\
+    \text{and } &\{h = 1, \omega = 1\}, \{h = 0.5, \omega = 2\}.
+  \end{align*}
+  
+  From this, it seems that the phase space solution depends only on $h \omega$. We make sense of this by looking at the exact solution,
+  \[
+    U(t) = 
+    \begin{pmatrix}
+      \cos \omega t & \sin \omega t \\
+      -\sin \omega t & \cos \omega t
+    \end{pmatrix}.
+  \]
+  This is a rotation matrix, and the speed of rotation is determined by $\omega$. For larger $\omega$, the rotation is faster. Intuitively we would expect to have to use more steps to get the same results when $\omega$ is high. For example going from $\omega = 1$ to $\omega = 2$, we need twice as many steps to get the same result. In other words we need to cut $h$ in half.
+  
+  In this case, knowing the nature of the exact solution helps to determine which values of $h$ will be sufficient. 
 \end{solution}

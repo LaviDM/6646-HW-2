@@ -33,9 +33,9 @@
     \]
     where $\mb q = q(t)$ is a scalar, $U(q) = D(1 - e^{-S(q-q_0)})^2$, and we use the constants $D = 90.5*.4184e-3$, $S = 1.814$, $q_0 = 1.41$, and $M = 0.9953$.
     
-    Integrate the Morse problem using 1000 uniform steps $h$. Apply three methods: forward Euler, symplectic Euler, and leapfrog. Try the values $h = 2$, $h = 2.3684$, and $h = 2.3685$ and plot in each case the discrepancy in the Hamiltonian (which equals 0 for the exact solution). The plot for $h = 2.3684$ is given in Figure 4.7.
+    Integrate the Morse problem using 1000 uniform steps $h$. Apply three methods: forward Euler, symplectic Euler, and leapfrog. Try the values $h = 2$, $h = 2.3684$, and $h = 2.3685$ and plot in each case the discrepancy in the Hamiltonian (which equals 0 for the exact solution).
     
-    What are your observations? [The surprising increase in leapfrog accuracy from $h = 2.3684$ to $h = 2.3685$ relates to a phenomenon called \emph{resonance instability}.]
+    What are your observations?
   \end{enumerate}
 \end{problem}
 
@@ -143,21 +143,106 @@
       + \mb O(h^3).
     \end{align*}
     Since the local truncation error is order $h^2$, the global error is order $h$, so the method is first order.
-    \item [todo]
+    \item For the leapfrog method, we start out knowing $\mb p_0$, $\mb q_0$, and $\mb q_{1/2}$. After that we have
+    \begin{align*}
+      M(\mb q_{n+1/2} - \mb q_{n-1/2}) &= h \mb p_n, \\
+      \mb p_n - \mb p_{n-1} &= h \mb f(\mb q_{n-1/2}).
+    \end{align*}
+    Assume that we have already computed $\mb p_0, \dots, \mb p_{n-1}$ and $\mb q_{1/2}, \dots, \mb q{n-1/2}$. Then we get $\mb p_n$ via 
+    \[
+      \mb p_n = \mb p_{n-1} + h \mb f(\mb q_{n-1/2}),
+    \]
+    and we get $\mb q_{n+1/2}$ via
+    \[
+      \mb q_{n+1/2} = \mb q_{n-1/2} + h M^{-1} \mb p_n.
+    \]
+    After that, we can compute $\mb q_n$ directly. Thus, this method is explicit.
+    
+    Notice that 
+    \begin{align*}
+      \mb q_n - \mb q_{n-1}
+      &= \frac12(\mb q_{n-1/2} + \mb q_{n+1/2}) - \frac12(\mb q_{n-3/2} + \mb q_{n-1/2}) \\
+      &= \frac12(\mb q_{n+1/2} - \mb q_{n-3/2}) \\
+      &= \frac12(\mb q_{n-1/2} + hM^{-1}\mb p_n - \mb q_{n-3/2}) \\
+      &= \frac12(hM^{-1} \mb p_n + (\mb q_{n-1/2} - \mb q_{n-3/2})) \\
+      &= \frac12(hM^{-1} \mb p_n + hM^{-1} \mb p_{n-1}) \\
+      &= h\left(\frac{1}{2M}(\mb p_n + \mb p_{n-1})\right).
+    \end{align*}
+    So, we can write the method as 
+    \[
+      \begin{pmatrix}
+        \mb q_n \\ \mb p_n
+      \end{pmatrix} = 
+      \begin{pmatrix}
+        \mb q_{n-1} \\ \mb p_{n-1}
+      \end{pmatrix} + h
+      \begin{pmatrix}
+        \frac{1}{2M}(\mb p_n + \mb p_{n-1}) \\
+        \mb f(\mb q_{n-1/2})
+      \end{pmatrix}.
+    \]
+    Next we compute the local truncation error. Note the index shift to make the Taylor series a bit nicer.
+    \begin{align*}
+      &
+      \begin{pmatrix}
+        \mb q(t_{n+1}) - \mb q(t_n) - \frac{h}{2M}(\mb p(t_{n+1}) + \mb p(t_n)) \\[0.3em]
+        \mb p(t_{n+1}) - \mb p(t_n) - h \mb f(\mb q(t_{n+1/2}))
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \mb q(t_{n+1}) - \mb q(t_n) - \frac{h}{2M}(M \mb q'(t_{n+1}) + M \mb q'(t_n)) \\[0.3em]
+        \mb p(t_{n+1}) - \mb p(t_n) - h \mb p'(t_{n+1/2})
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \mb q(t_{n+1}) - \mb q(t_n) - \frac{h}{2}(\mb q'(t_{n+1}) + \mb q'(t_n)) \\[0.3em]
+        \mb p(t_{n+1}) - \mb p(t_n) - h \mb p'(t_{n+1/2})
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \mb q(t_n) + h \mb q'(t_n) + \frac{h^2}{2} \mb q''(t_n) + \frac{h^3}{3} \mb q'''(t_n) + O(h^4) - \mb q(t_n) - \frac{h}{2}(\mb q'(t_{n+1}) + \mb q'(t_n)) \\[0.3em]
+        \mb p(t_n) + h \mb p'(t_n) + \frac{h^2}{2} \mb p''(t_n) + \frac{h^3}{3} \mb p'''(t_n) + O(h^4) - \mb p(t_n) - h \mb p'(t_{n+1/2})
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \frac{h}{2} \mb q'(t_n) + \frac{h^2}{2} \mb q''(t_n) + \frac{h^3}{3} \mb q'''(t_n) - \frac{h}{2}\mb q'(t_{n+1}) + O(h^4) \\[0.3em]
+        h \mb p'(t_n) + \frac{h^2}{2} \mb p''(t_n) + \frac{h^3}{3} \mb p'''(t_n) - h \mb p'(t_{n+1/2}) + O(h^4)
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \frac{h}{2} \mb q'(t_n) + \frac{h^2}{2} \mb q''(t_n) + \frac{h^3}{3} \mb q'''(t_n) - \frac{h}{2}\left(\mb q'(t_n) + h \mb q''(t_n) + \frac{h^2}{2} \mb q'''(t_n) + O(h^3)\right) + O(h^4) \\[0.3em]
+        h \mb p'(t_n) + \frac{h^2}{2} \mb p''(t_n) + \frac{h^3}{3} \mb p'''(t_n) - h\left(\mb p'(t_n) + \frac{h}{2} \mb p''(t_n) + \frac{h^2}{8} \mb p'''(t_n) + O(h^3)\right) + O(h^4)
+      \end{pmatrix} \\
+      =& 
+      \begin{pmatrix}
+        \frac{h^3}{3} \mb q'''(t_n) - \frac{h^3}{4} \mb q'''(t_n) + O(h^4) \\[0.3em]
+        \frac{h^3}{3} \mb p'''(t_n) - \frac{h^3}{8} \mb p'''(t_n) + O(h^4)
+      \end{pmatrix}\\
+      =& 
+      h^3
+      \begin{pmatrix}
+        \frac{1}{12} \mb q'''(t_n) \\[0.3em]
+        \frac{5}{24} \mb p'''(t_n)
+      \end{pmatrix} + O(h^4).
+    \end{align*}
+    Since the local truncation error is order $h^3$, the global error is order $h^2$ and so the method is second order.
     \item 
-    \begin{figure}
+    \begin{figure}[h!]
       \centering
-      \includegraphics[width=0.32\textwidth]{images/01_fe1.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_fe2.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_fe3.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_se1.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_se2.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_se3.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_lf1.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_lf2.pdf}
-      \includegraphics[width=0.32\textwidth]{images/01_lf3.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_1_1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_1_2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_1_3.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_2_1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_2_2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_2_3.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_3_1.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_3_2.pdf}
+      \includegraphics[width=0.32\textwidth]{images/01_3_3.pdf}
       \caption{Hamiltonian discrepancy for various methods and step sizes.}
-      \label{F:hamiltonian}
+      \label{F:01}
     \end{figure}
+    Figure \ref{F:01} shows the Hamiltonian discrepancy for the forward Euler, symplectic Euler, and leapfrog methods using various step sizes. 
+    
+    We notice that the Hamiltonian discrepancy is higher for the forward Euler and symplectic Euler methods, but it levels off after a short period of time. The Hamiltonian discrepancy is much smaller in the leapfrog method and is periodic. Because of its symplectic nature, the leapfrog method conserves the energy in dynamical systems.
   \end{enumerate}
 \end{solution}

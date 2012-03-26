@@ -28,5 +28,37 @@
 \FloatBarrier
 
 \begin{solution}
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.49\textwidth]{images/04_1_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_1_2.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_2_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_2_2.pdf}
+    \caption{Implicit midpoint solution and discrepancy for $h = 0.1, 0.01$}
+    \label{F:04_1}
+    
+  \end{figure}
+  Figure \ref{F:04_1} shows the results for the implicit midpoint method for $h = 0.1$ and $h = 0.01$. We notice that the phase plane portraits are qualitatively very good and sharp. Also, the energy discrepancy is bounded in each case. For $h = 0.1$, $|H(\mb q(t), \mb p(t)) - H( \mb q(0),\mb p(0))| < 0.05$ and for $h = 0.01$, $|H(\mb q(t), \mb p(t)) - H( \mb q(0),\mb p(0))| < 6 \times 10^{-4}$.
   
+  \FloatBarrier
+  
+  \begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.49\textwidth]{images/04_3_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_3_2.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_4_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/04_4_2.pdf}
+    \caption{RK4 solution and discrepancy for $h = 0.1, 0.01$}
+    \label{F:04_2}
+  \end{figure}
+  
+  Figure \ref{F:04_2} shows the results for the classical Runge-Kutta method of order 4. Both of the phase plane diagrams are fuzzier than their implicit midpoint counterparts, especially for $h = 0.1$. What is most striking is the energy discrepancy. The error in the RK4 method ends up being systematic, leading to a long term increase in energy error. Since the energy constraint is violated, it drifts away from the actual solution over time.
+  
+  \FloatBarrier
+  
+  For $h = 0.1$, the energy discrepancy reaches almost $0.15$ at $t = 500$ compared with less than $0.05$ for the implicit midpoint method. It is clear that this is affected greatly by $bh$ being much larger than $1$.
+  
+  For $h = 0.01$, the Runge-Kutta method performs better. The energy discrepancy is less than $1.4 \times 10^{-6}$ compared with about $6 \times 10^{-4}$ for the implicit midpoint method. However, if we needed to compute to $t_f = 5000$, the implicit midpoint method would again win out.
+  
+  We conclude from these examples that accuracy is not the only thing we should consider since the second order implicit midpoint method outperforms the fourth order RK method. Instead we should look for a method that works best with the specific problem and all of its properties. In this case the problem was unique because of the conservation of energy property. The symmetries of the implicit midpoint method make it better suited to obey this conservation of energy.
 \end{solution}

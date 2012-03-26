@@ -52,14 +52,15 @@
     \end{pmatrix}.
   \]
   
-  \begin{figure}
+  \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.49\textwidth]{images/02_rk4_1.pdf}
-    \includegraphics[width=0.49\textwidth]{images/02_rk4_2.pdf}
-    \includegraphics[width=0.49\textwidth]{images/02_rk4_3.pdf}
-    \includegraphics[width=0.49\textwidth]{images/02_rk4_4.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_1.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_2.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_3.pdf}
+    \includegraphics[width=0.49\textwidth]{images/02_4.pdf}
     \caption{Astronomical orbits using the classical Runge-Kutta method of order 4}
-    \label{F:rk4}
+    \label{F:02}
   \end{figure}
-  
+
+  Figure \ref{F:02} shows the results in phase space for using 100, 1000, 10000, and 20000 uniform steps. The orbit becomes qualitatively accurate around 10000 steps. This is a huge number of steps compared to the 204 needed using a method with local error tolerance. Using uniform steps requires that all steps are as small as they need to be around the singularities.
 \end{solution}
