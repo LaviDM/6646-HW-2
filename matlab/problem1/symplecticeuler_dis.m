@@ -6,13 +6,13 @@ function [T, Y, D] = symplecticeuler_dis(f, y0, h, H, tfinal)
   
   % initialize the step number
   n = 1;
-
+  
   % set the initial values
   Y(:,n) = y0;
   T(n) = 0;
   ham0 = H(Y(1,1), Y(2,1));
   D(n) = H(Y(1,n), Y(2,n)) - ham0;
-
+  
   while T(end) < (tfinal - h)
     % apply the forward Euler method to the second entry
     Y(:,n+1) = Y(:,n) + h * f(T(n), Y(:,n));

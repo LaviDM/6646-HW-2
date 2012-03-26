@@ -6,7 +6,7 @@ function [T, Y, D] = leapfrog_dis(f, M, y0, h, H, tfinal)
   
   % initialize the step number
   n = 1;
-
+  
   % set the initial values
   Y(:,n) = y0;
   T(n) = 0;
@@ -23,7 +23,7 @@ function [T, Y, D] = leapfrog_dis(f, M, y0, h, H, tfinal)
     Y(1,n+1) = (q2(n+1) + q2(n))/2;
     
     % compute the Hamiltonian discrepancy
-    D(n+1) = H(Y(1,n+1), Y(2,n+1));
+    D(n+1) = H(Y(1,n+1), Y(2,n+1)) - ham0;
     
     % store the time step
     T(n+1) = T(n) + h;
